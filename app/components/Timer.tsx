@@ -8,7 +8,7 @@ import { createContext } from "react";
 export const TimeContext = createContext(0);
 
 export const Timer = () => {
-    const [timeLeft, setTimeLeft] = useState(2);
+    const [timeLeft, setTimeLeft] = useState(120);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
