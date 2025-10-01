@@ -6,12 +6,46 @@
   --cards: #313637;
   --text: #FFFFFF;
   --prev-price: #919191;
-  --disclaimer: #9B9B9B;
   --acception: #CDCDCD;
+  --disclaimer: #9B9B9B;
   --btn-text: #191E1F;
   --accent: #FDB056;
   --discount: #FD5656;
   --garanty: #81FE95;
+  --red-timer: #FF4E4E;
+  --yellow-timer: #FFBB00;
+  --cards-border: #484D4E;
+  --exclamation-bg: #2D3233;
+  --checkbox: #606566;
+  --garanty-disclaimer: #DCDCDC;
+}
+
+@theme {
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 425px;
+
+  --animate-pulse-1: pulse 1s linear infinite;
+  --animate-pulse-2: pulse 2s linear infinite;
+
+  --animate-price-change: price-change 1s linear;
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.75;
+    }
+  }
+
+  @keyframes price-change {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.9);
+    }
+  }
 }
 
 @theme inline {
@@ -20,12 +54,19 @@
   --color-cards: var(--cards);
   --color-text: var(--text);
   --color-prev-price: var(--prev-price);
-  --color-disclaimer: var(--disclaimer);
   --color-acception: var(--acception);
+  --color-disclaimer: var(--disclaimer);
   --color-btn-text: var(--btn-text);
   --color-accent: var(--accent);
   --color-discount: var(--discount);
   --color-garanty: var(--garanty);
+  --color-red-timer: var(--red-timer);
+  --color-yellow-timer: var(--yellow-timer);
+  --color-cards-border: var(--cards-border);
+  --color-exclamation-bg: var(--exclamation-bg);
+  --color-checkbox: var(--checkbox);
+  --color-garanty-disclaimer: var(--garanty-disclaimer);
+  
   --font-montserrat: var(--font-montserrat);
   --font-raleway: var(--font-raleway);
 }
@@ -33,4 +74,5 @@
 body {
   background: var(--background);
   color: var(--text);
+  font-family: var(--font-montserrat), sans-serif;
 }

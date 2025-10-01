@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 
 const raleway = Raleway({
   variable: "--font-raleway",
-  subsets: ["latin"],
+  subsets: ["cyrillic"],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${montserrat.variable} ${raleway.variable} antialiased font-montserrat`}
+        className={`${montserrat.variable} ${raleway.variable} antialiased text-sm`}
       >
         {children}
       </body>
