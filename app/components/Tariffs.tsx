@@ -29,7 +29,6 @@ export const Tariffs = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedTariff, setSelectedTariff] = useState<string | null>(null);
     const [isAnimating, setIsAnimating] = useState(false);
-    const [priceChanged, setPriceChanged] = useState(false);
     
     const timeLeft = useContext(TimeContext);
 
@@ -74,14 +73,14 @@ export const Tariffs = () => {
     }, [tariffs])
 
     useEffect(() => {
-        if(timeLeft === 0 && !priceChanged) {
+        if(timeLeft === 0 ) {
             setIsAnimating(true);
             const timer = setTimeout(() => {
                 setIsAnimating(false);
             }, 1000)
             return () => clearTimeout(timer);
         }
-    }, [timeLeft, priceChanged])
+    }, [timeLeft])
 
     if (isLoading) {
         return (
