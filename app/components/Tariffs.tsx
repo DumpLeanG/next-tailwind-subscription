@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import type { Tariff } from "@/lib/types/tariff";
 import { TimeContext } from "./Timer";
+import { useBreakpoint } from "@/lib/hooks/useBreakpoint";
 
 interface ApiResponse {
   success: boolean;
@@ -29,6 +30,7 @@ export const Tariffs = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedTariff, setSelectedTariff] = useState<string | null>(null);
     const [isAnimating, setIsAnimating] = useState(false);
+    const { isXs, isSm } = useBreakpoint();
     
     const timeLeft = useContext(TimeContext);
 
@@ -82,6 +84,15 @@ export const Tariffs = () => {
         }
     }, [timeLeft])
 
+    function shortText(text: string) {
+        let cleanedText = text;
+        if(text.split(' ').length >= 4) {
+            cleanedText = text.replace(/^Для тех, кто хочет |^Чтобы /, "").split(" ").slice(0, 4).join(" ");
+            cleanedText = cleanedText.charAt(0).toUpperCase() + cleanedText.slice(1);
+        }
+        return cleanedText;
+    }
+
     if (isLoading) {
         return (
             <TariffSkeleton />
@@ -110,15 +121,15 @@ export const Tariffs = () => {
                                 {timeLeft > 0 && <span className="leading-[1.2] sm:text-base xl:text-2xl text-right line-through text-prev-price">{tariff.full_price} ₽</span>}
                             </div>
                         </div>
-                        <p className="w-30 md:w-full xl:text-base">{tariff.text}</p>
-                        {discount > 0 && 
+                        <p className="w-30 md:w-full xl:text-base leading-[1.3]">{(isXs || isSm) ? shortText(tariff.text) : tariff.text}</p>
+                        {discount > 0 &&
                             tariff.is_best ?
                             <div className="absolute right-2 -top-[0.125rem] xl:top-0 xl:right-0 xl:left-0 flex items-start sm:gap-2">
-                                <span className="py-0.75 px-1.5 bg-discount rounded-lg rounded-t-none font-medium text-[13px] sm:text-base xl:text-[1.375rem] leading-[1.3] xl:absolute xl:py-1.25 xl:px-2 xl:-top-[0.125rem] xl:left-12.5">-{discount}%</span>
+                                {timeLeft > 0 && <span className="py-0.75 px-1.5 bg-discount rounded-lg rounded-t-none font-medium text-[13px] sm:text-base xl:text-[1.375rem] leading-[1.3] xl:absolute xl:py-1.25 xl:px-2 xl:-top-[0.125rem] xl:left-12.5">-{discount}%</span>}
                                 <span className="p-1.5 font-medium text-[13px] sm:text-base xl:text-[1.375rem] leading-[1.3] text-accent xl:absolute xl:p-0 xl:top-2.5 xl:right-5">хит!</span>
                             </div>
                             :
-                            <span className="absolute py-0.75 px-1.5 right-7.5 -top-[0.125rem] bg-discount rounded-lg rounded-t-none font-medium text-[13px] sm:text-base xl:text-[1.375rem] leading-[1.3] xl:py-1.25 xl:px-2 xl:right-auto xl:-top-[0.125rem] xl:left-12.5">-{discount}%</span>
+                            timeLeft > 0 && <span className="absolute py-0.75 px-1.5 right-7.5 -top-[0.125rem] bg-discount rounded-lg rounded-t-none font-medium text-[13px] sm:text-base xl:text-[1.375rem] leading-[1.3] xl:py-1.25 xl:px-2 xl:right-auto xl:-top-[0.125rem] xl:left-12.5">-{discount}%</span>
                         }
                     </li>
                 )
